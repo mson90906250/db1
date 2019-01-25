@@ -1,16 +1,19 @@
 <?php require_once('Connections/cdb1.php'); ?>
 <?php
-$maxRows_rsdb1 = 3;
-$pageNum_rsdb1 = 0;
+$maxRows_rsdb1 = 3;//限制每一頁顯示幾筆資料
+$pageNum_rsdb1 = 0;//預設開始頁面為零
 if (isset($_GET['pageNum_rsdb1'])) {
   $pageNum_rsdb1 = $_GET['pageNum_rsdb1'];
 }
-$startRow_rsdb1 = $pageNum_rsdb1 * $maxRows_rsdb1;
+$startRow_rsdb1 = $pageNum_rsdb1 * $maxRows_rsdb1;//設定每頁的第一筆資料從多少開始(ex 第零頁 第零筆;第一頁 第三筆)
 
 mysql_select_db($database_cdb1, $cdb1);
+//sql語法
 $query_rsdb1 = "SELECT * FROM db1 ORDER BY ID ASC";
 $query_limit_rsdb1 = sprintf("%s LIMIT %d, %d", $query_rsdb1, $startRow_rsdb1, $maxRows_rsdb1);
+//執行sql語法
 $rsdb1 = mysql_query($query_limit_rsdb1, $cdb1) or die(mysql_error());
+
 $row_rsdb1 = mysql_fetch_assoc($rsdb1);
 
 if (isset($_GET['totalRows_rsdb1'])) {
@@ -52,7 +55,7 @@ $totalPages_rsdb1 = ceil($totalRows_rsdb1/$maxRows_rsdb1)-1;
           <input type="submit" name="Submit" value="第一頁" />
           </label>
       </form>
-      </div></td>
+    </div></td>
     <td><div align="center">
       <form id="form2" name="form2" method="post" action="">
         <label>
