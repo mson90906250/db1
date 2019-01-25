@@ -1,10 +1,25 @@
 <?php require_once('Connections/cdb1.php'); ?>
 <?php
+$maxRows_rsdb1 = 3;
+$pageNum_rsdb1 = 0;
+if (isset($_GET['pageNum_rsdb1'])) {
+  $pageNum_rsdb1 = $_GET['pageNum_rsdb1'];
+}
+$startRow_rsdb1 = $pageNum_rsdb1 * $maxRows_rsdb1;
+
 mysql_select_db($database_cdb1, $cdb1);
 $query_rsdb1 = "SELECT * FROM db1 ORDER BY ID ASC";
-$rsdb1 = mysql_query($query_rsdb1, $cdb1) or die(mysql_error());
+$query_limit_rsdb1 = sprintf("%s LIMIT %d, %d", $query_rsdb1, $startRow_rsdb1, $maxRows_rsdb1);
+$rsdb1 = mysql_query($query_limit_rsdb1, $cdb1) or die(mysql_error());
 $row_rsdb1 = mysql_fetch_assoc($rsdb1);
-$totalRows_rsdb1 = mysql_num_rows($rsdb1);
+
+if (isset($_GET['totalRows_rsdb1'])) {
+  $totalRows_rsdb1 = $_GET['totalRows_rsdb1'];
+} else {
+  $all_rsdb1 = mysql_query($query_rsdb1);
+  $totalRows_rsdb1 = mysql_num_rows($all_rsdb1);
+}
+$totalPages_rsdb1 = ceil($totalRows_rsdb1/$maxRows_rsdb1)-1;
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,11 +36,13 @@ $totalRows_rsdb1 = mysql_num_rows($rsdb1);
       <p>地址</p>
       </div></td>
   </tr>
-  <tr>
-    <td><div align="center"><?php echo $row_rsdb1['Name']; ?></div></td>
-    <td><div align="center"><?php echo $row_rsdb1['Old']; ?></div></td>
-    <td><div align="center"><?php echo $row_rsdb1['Addr']; ?></div></td>
-  </tr>
+  
+    <?php do { ?>
+	<tr>
+      <td><div align="center"><?php echo $row_rsdb1['Name']; ?></div></td>
+      <td><div align="center"><?php echo $row_rsdb1['Old']; ?></div></td>
+      <td><div align="center"><?php echo $row_rsdb1['Addr']; ?></div></td>
+    </tr> <?php } while ($row_rsdb1 = mysql_fetch_assoc($rsdb1)); ?>
 </table>
 <table width="500" border="1" align="center">
   <tr>
