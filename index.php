@@ -81,7 +81,7 @@ $totalPages_rsdb1 = ceil($totalRows_rsdb1/$maxRows_rsdb1)-1;
   
     <?php do { ?>
 	<tr>
-      <td><div align="center"><a href="details.php?ID=<?php echo $row_rsdb1['ID']; ?>"><?php echo $row_rsdb1['Name']; ?></a></div></td>
+      <td><div align="center"><a href="detail.php?ID=<?php echo $row_rsdb1['ID']; ?>"><?php echo $row_rsdb1['Name']; ?></a></div></td>
       <td><div align="center"><?php echo $row_rsdb1['Old']; ?></div></td>
       <td><div align="center"><?php echo $row_rsdb1['Addr']; ?></div></td>
     </tr> <?php } while ($row_rsdb1 = mysql_fetch_assoc($rsdb1)); ?>
