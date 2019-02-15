@@ -17,22 +17,22 @@ $totalRows_rsdb1 = mysql_num_rows($rsdb1);
 </head>
 
 <body>
-	<table width="508" border="1" align="center">
+	<table width="550" border="1" align="center">
   <tr>
     <td width="92"><div align="center">ID</div></td>
     <td width="120"><div align="center">姓名</div></td>
     <td width="102"><div align="center">年齡</div></td>
     <td width="112"><div align="center">地址</div></td>
-    <td width="21"><div align="center">更新</div></td>
-    <td width="21"><div align="center">刪除</div></td>
+    <td width="42"><div align="center">更新</div></td>
+    <td width="42"><div align="center">刪除</div></td>
   </tr>
   <tr>
     <td><div align="center"><?php echo $row_rsdb1['ID']; ?></div></td>
     <td><div align="center"><?php echo $row_rsdb1['Name']; ?></div></td>
     <td><div align="center"><?php echo $row_rsdb1['Old']; ?></div></td>
     <td><div align="center"><?php echo $row_rsdb1['Addr']; ?></div></td>
-    <td><div align="center"></div></td>
-    <td><div align="center"></div></td>
+    <td><div align="center"><a href="update.php?ID=<?php echo $row_rsdb1['ID']; ?>">更新</a></div></td>
+    <td><div align="center"><a href="del.php?ID=<?php echo $row_rsdb1['ID']; ?>" onclick="return confirm('確定要刪除嗎?')">刪除</a></div></td>
   </tr>
 </table>
 

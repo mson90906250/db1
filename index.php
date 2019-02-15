@@ -21,6 +21,8 @@ if (isset($_GET['totalRows_rsdb1'])) {
   $all_rsdb1 = mysql_query($query_rsdb1);
   $totalRows_rsdb1 = mysql_num_rows($all_rsdb1);
 }
+
+//ceil(x) 函数 回傳一個>=x的float值
 $totalPages_rsdb1 = ceil($totalRows_rsdb1/$maxRows_rsdb1)-1;
 
 $queryString_rsdb1 = "";
